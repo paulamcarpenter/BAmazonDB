@@ -35,16 +35,16 @@ var purchasePrompt = function(){
 		  		}
 		  	}
 
-	}]).then(function(answer) {
-		connection.query("SELECT stock_quantity FROM products WHERE item_id = " + answer.item_id, function(err, res) {
-			if (err) throw err;
-			// Log all results of the SELECT statement
-			console.log(res);
-		});
-		connection.end();
+		}]).then(function(answer) {
+			connection.query("SELECT stock_quantity FROM products WHERE item_id = " + answer.item_id, function(err, res) {
+				if (err) throw err;
+				// Log all results of the SELECT statement
+				console.log(res);
+			});
+			// connection.end();
 
- 		console.log(answer.item_id);
-	});
+	 		console.log(answer.item_id);
+		});
 };
 
 purchasePrompt();
@@ -58,7 +58,7 @@ function readProducts() {
  		var arrayOfProducts = [];
  		var table = new Table({ 
  			head: ["Item ID", "Product Name", "Department Name", "Price", "Stock Quantity"], 
- 			colWidths: [15, 15, 15, 15, 20],
+ 			colWidths: [15, 15, 20, 15, 20],
  			style: {compact : true, "padding-left" :1}
  		});
 
@@ -83,3 +83,4 @@ function readProducts() {
 }; 	
 
 readProducts();
+
