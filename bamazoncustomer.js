@@ -20,6 +20,7 @@ var purchasePrompt = function() {
 	 		name: 'item_id',
 	  		type: 'input',
 	  		message:  "What item ID would you like to purchase?",
+	  		choices: ["POST", "BID"]
 		},
 	 	{
 	 		name: 'numberOfUnitsToPurchase',
@@ -34,9 +35,11 @@ var purchasePrompt = function() {
 		});
 		connection.end();
 
- 		//console.log(answer.item_id);
+ 		console.log(answer.item_id);
 	});
 };
+
+purchasePrompt();
 
 
 function readProducts() {
@@ -44,7 +47,7 @@ function readProducts() {
  	connection.query("SELECT * FROM products", function(err, res) {
  		if (err) throw err;
  		// Log all results of the SELECT statement
- 		console.log(res);
+ 			console.log(res);
  		var table = new Table({ 
  			head: ["Item ID", "Product Name", "Department Name", "Price", "Stock Quantity"], 
  			colWidths: [15, 15, 15, 15, 15],
@@ -66,8 +69,6 @@ function readProducts() {
 		});
 	});
 };
-
-purchasePrompt();
 
 readProducts();
 
