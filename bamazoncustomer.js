@@ -10,9 +10,9 @@ var connection = mysql.createConnection({
 	database: "bamazondb"
 })
 
-// connection.connect(function(err){
-// 	//console.log("Connected as id " + connection.threadId);
-// })
+ // connection.connect(function(err){
+	// console.log("Connected as id " + connection.threadId);
+ // })
 
 var purchasePrompt = function() {
  	inquirer.prompt([
@@ -53,20 +53,21 @@ function readProducts() {
  		
   		var arrayOfProducts = [];
 
-  		res.forEach(function(product) {
+   		res.forEach(function(product) {
  		
- 	 	// var productArr = [];
- 	 	//  productArr.push(product.item_id, product.product_name, product.department_name, product.price, product.stock_quantity);
- 	 	//  arrayOfProducts.push(productArr);
- 	  // 	});
-
- 		table.push(arrayOfProducts);
+		var productArr = [];
+   		productArr.push(product.item_id, product.product_name, product.department_name, product.price, product.stock_quantity);
+   
+	    arrayOfProducts.push(productArr);
+	
+		table.push(arrayOfProducts);
 		 
- 		 console.log(table.toString());
- 		 purchasePrompt();
+  			 console.log(table.toString());
 		});
 	});
-}; 	
+};
+
+purchasePrompt();
 
 readProducts();
 
@@ -74,8 +75,7 @@ readProducts();
 // 	connection.query("SELECT * FROM products", function(err,res){
 // 		console.log(res);
 // 		inquirer.prompt({
-// 			name:"choice",
-// 			type:"rawlist",
+// 			name:"choice",/ 			type:"rawlist",
 // 			choices:function(value){
 // 				var choiceArray = [];
 // 					for(var i=0; i<res.length; i++){
@@ -110,16 +110,16 @@ readProducts();
 // 								console.log("Order successfully placed!");
 // 								purchasePrompt();
 // 							});
-
 // 						} else {
 // 							console.log("We are out of stock, try a different quantity!");
 // 							purchasePrompt();
-
-// 						}
+//  						}
 // 					})
 // 				}
 // 			}
 // 		})
 // 	})	
 // }
+
+// readProducts();
 
