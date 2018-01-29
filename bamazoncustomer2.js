@@ -33,18 +33,27 @@ var purchasePrompt = function(){
 		  		} else {
 		  			return false;
 		  		}
-		  	}
+			}
+		},
+	]).then(function(answer){
+		var chosenItem = answer;
+		if(chosenItem.stock_quantity < parseInt(answer.stock_quantity)){
+			connection.query("UPDATE products SET ? WHERE ?",[{
+				stock_quantity: answer.chosenItem
 
-		}]).then(function(answer) {
-			connection.query("SELECT stock_quantity FROM products WHERE item_id = " + answer.item_id, function(err, res) {
-				if (err) throw err;
-				// Log all results of the SELECT statement
-				console.log(res);
+			},{
+				id: chosenItem.id
+			}], function(err,res) {
+				console.log("Order successfully placed!");
+				purchasePrompt();
 			});
-			// connection.end();
 
-	 		console.log(answer.item_id);
-		});
+		} else {
+			console.log("We have insufficient quanitity!  Please try again!");
+			purchasePrompt();
+
+		}
+	})
 };
 
 purchasePrompt();
@@ -57,7 +66,7 @@ function readProducts() {
  			// console.log(res);
  		var arrayOfProducts = [];
  		var table = new Table({ 
- 			head: ["Item ID", "Product Name", "Department Name", "Price", "Stock Quantity"], 
+ 			head: ["Item ID", "Product Name", "Department Name","Price", "Stock Quantity"], 
  			colWidths: [15, 15, 20, 15, 20],
  			style: {compact : true, "padding-left" :1}
  		});
